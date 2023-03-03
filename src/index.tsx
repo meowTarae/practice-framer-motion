@@ -1,10 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import App from "./App";
 import { darkTheme } from "./theme";
 import { createGlobalStyle } from "styled-components";
+import { BrowserRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
 html, body, div, span, applet, object, iframe,
@@ -62,21 +63,23 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   color:black;
   line-height: 1.2;
-  background:linear-gradient(135deg,#e09,#d0e);
+  background:linear-gradient(135deg,#50586C,#DCE2F0);
 }
 a {
   text-decoration:none;
   color:inherit;
 }
 `;
-ReactDOM.render(
-  <React.StrictMode>
+
+const container = document.getElementById("root") as HTMLElement;
+const root = createRoot(container);
+root.render(
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <RecoilRoot>
       <ThemeProvider theme={darkTheme}>
         <GlobalStyle />
         <App />
       </ThemeProvider>
     </RecoilRoot>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </BrowserRouter>
 );
